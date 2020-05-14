@@ -9,14 +9,14 @@ class ProductPage(BasePage):
     def should_be_add_button(self):
         assert self.is_element_present(*ProductPageLocators.ADD_TO_BASKET), "Button add to the basket is not presented"
 
-    def should_be_message_about_product_name(self):
+    def should_be_message_about_product(self):
         assert self.is_element_present(*ProductPageLocators.PRODUCT_NAME), "Product name is not presented"
         product_name = self.text_element(*ProductPageLocators.PRODUCT_NAME)
         assert self.is_element_present(*ProductPageLocators.PRODUCT_PRICE), "Product price is not presented"
         product_price = self.text_element(*ProductPageLocators.PRODUCT_PRICE)
         return product_name, product_price
 
-    def should_be_message_about_product_name_in_basket(self):
+    def should_be_message_about_product_in_basket(self):
         assert self.is_element_present(*ProductPageLocators.PRODUCT_NAME_IN_BASKET), "No product name in basket"
         product_name_in_basket = self.text_element(*ProductPageLocators.PRODUCT_NAME_IN_BASKET)
         assert self.is_element_present(*ProductPageLocators.PRODUCT_PRICE_IN_BASKET), "No product price in basket"
@@ -26,3 +26,9 @@ class ProductPage(BasePage):
     def element_comparison(self, product, product_in_basket):
         assert product[0] == product_in_basket[0], "Incorrect product added"
         assert product[1] == product_in_basket[1], "Wrong product price"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), "Success message is presented, but should not be"
+
+    def should_be_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), "Success message is presented, and should be"
